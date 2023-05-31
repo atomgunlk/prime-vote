@@ -1,0 +1,20 @@
+{
+	"editor.insertSpaces": false,
+	"go.alternateTools": {
+
+	},
+	"go.testFlags": ["-v", "-benchmem"],
+	"go.testEnvVars": {
+		"APP_ENV" : "development", // production // development // debug
+		"APP_PORT": "8000",
+		"LOG_LEVEL" : "debug",
+
+		"DB_HOST" :"127.0.0.1",
+		"DB_PORT" : "5433",
+		"DB_USERNAME" :"root",
+		"DB_PASSWORD" :"root",
+		"DB_NAME" :"primevote",
+
+		"JWT_SECRET": "g_h9T{xpV3^YDW[w#@Y,Gz!(~e'>Nc47Vn9juZ23`L-@H8}<DhK=3]*[_/mk4Uj,",
+	},
+}
