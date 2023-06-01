@@ -1,6 +1,5 @@
 #!/bin/sh
-appcommit=$(git rev-parse --short HEAD)
-appversion=$(cat appversion.txt)-$appcommit
+appversion=$(cat appversion.txt)
 
 cd ../
 echo "Building $appversion"

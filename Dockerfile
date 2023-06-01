@@ -1,12 +1,13 @@
 FROM golang:1.20.1-alpine3.17 AS builder
 
 WORKDIR /src/go
-COPY go.mod go.sum ./
+COPY ./go.mod ../go.sum ./
 
 RUN go mod download
 
 COPY ./cmd/ ./cmd
 COPY ./internal/ ./internal
+COPY ./mocks/ ./mocks
 
 ENV APP_ENV=development
 ENV APP_PORT=8000
@@ -18,7 +19,7 @@ ENV DB_PASSWORD=root
 ENV DB_NAME=primevote
 ENV JWT_SECRET=testsecret1234
 
-RUN go test ./cmd/prime-vote/handler -run "TestUnitHandler" -cover
+RUN go test -run "TestUnitHandler" "./cmd/prime-vote/handler"
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix nocgo -o /app "./cmd/prime-vote"
 
 FROM alpine:3.17

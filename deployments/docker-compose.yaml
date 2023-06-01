@@ -1,0 +1,39 @@
+services:
+  prime-vote: 
+    container_name: prime-vote
+    image: prime-vote:0.0.1
+    restart: always
+    environment:
+      - APP_ENV=inspection
+      - APP_PORT=8000
+      - LOG_LEVEL=debug
+      - DB_HOST=vote-db
+      - DB_PORT=5432
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+      - DB_NAME=primevote
+      - JWT_SECRET=g_h9T{xpV3^YDW[w#@Y,Gz!(~e'>Nc47Vn9juZ23`L-@H8}<DhK=3]*[_/mk4Uj,
+    ports:
+      - '8000:8000'
+    depends_on:
+      - vote-db
+
+  vote-db:
+    container_name: vote-db
+    image: postgres:14.7-alpine3.17
+    restart: always
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=primevote
+    ports:
+      - '5438:5432'
+    volumes: 
+      - vote-db-vol:/var/lib/postgresql/data
+
+volumes:
+  vote-db-vol:
+    name: vote-db-vol
+
+networks:
+  default:
