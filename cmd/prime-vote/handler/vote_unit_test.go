@@ -11,13 +11,13 @@ import (
 	"github.com/atomgunlk/prime-vote/cmd/prime-vote/be_error"
 	"github.com/atomgunlk/prime-vote/cmd/prime-vote/handler"
 	"github.com/atomgunlk/prime-vote/cmd/prime-vote/model"
-	"github.com/atomgunlk/prime-vote/mocks/cmd/prime-vote/repository"
+	"github.com/atomgunlk/prime-vote/mocks"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/utils"
 )
 
 func TestUnitHandler_Vote(t *testing.T) {
-	mockRepo := repository.NewRepository(t)
+	mockRepo := mocks.NewRepository(t)
 	// Set mock repo function
 	mockRepo.On("GetUserByID", uint64(1)).
 		Return(

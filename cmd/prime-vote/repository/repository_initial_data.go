@@ -12,8 +12,8 @@ import (
 
 func (r *voteRepository) PrepareUserData() error {
 	bkk, _ := time.LoadLocation("Asia/Bangkok")
-	// insert 100,000 user
-	for i := 0; i < 100000; i++ {
+	// insert 100 user
+	for i := 0; i < 100; i++ {
 		hashed, _ := encrypt.HashPassword(fmt.Sprintf("test%d", i))
 		user := model.User{
 			Username: fmt.Sprintf("test%d", i),

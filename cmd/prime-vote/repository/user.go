@@ -49,3 +49,16 @@ func (r *voteRepository) GetUserByID(id uint64) (*model.User, error) {
 
 	return &user, nil
 }
+
+func (r *voteRepository) GetUserCount() (int64, error) {
+	ctx, cancel := r.defaultContext()
+	defer cancel()
+	count := int64(0)
+	row := r.DB.QueryRow(ctx, "SELECT count(1) FROM users WHERE deleted_at IS NULL")
+	err := row.Scan(&count)
+	if err != nil {
+		return count, errors.Join(err, errors.New("[Repository.GetUserCount]"))
+	}
+
+	return count, nil
+}

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/atomgunlk/golang-common/pkg/logger"
 	"github.com/atomgunlk/prime-vote/cmd/prime-vote/model"
 	"github.com/jackc/pgx/v5"
 )
@@ -73,7 +74,30 @@ func New(cfg *Config) (Repository, error) {
 		return nil, errors.New("[repository.New]: operation timeout is invalid")
 	}
 
-	return &voteRepository{DB: conn, operationTimeout: operationTimeout}, nil
+	repo := &voteRepository{DB: conn, operationTimeout: operationTimeout}
+
+	// initial data
+	{
+		// get user count
+		count, err := repo.GetUserCount()
+		if err != nil {
+			logger.WithError(err).Errorf("[repository.New]:initial data ")
+		} else if err == nil && count == 0 {
+
+			logger.Info("[repository.New]:initializing data ...")
+
+			err := repo.PrepareUserData()
+			if err != nil {
+				logger.WithError(err).Errorf("[repository.New]:initial data PrepareUserData ")
+			}
+			err = repo.PrepareVoteItem()
+			if err != nil {
+				logger.WithError(err).Errorf("[repository.New]:initial data PrepareVoteItem")
+			}
+		}
+	}
+
+	return repo, nil
 }
 
 func (r *voteRepository) defaultContext() (context.Context, context.CancelFunc) {

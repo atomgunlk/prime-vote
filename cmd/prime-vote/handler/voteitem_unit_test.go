@@ -12,13 +12,13 @@ import (
 	"github.com/atomgunlk/prime-vote/cmd/prime-vote/be_error"
 	"github.com/atomgunlk/prime-vote/cmd/prime-vote/handler"
 	"github.com/atomgunlk/prime-vote/cmd/prime-vote/model"
-	"github.com/atomgunlk/prime-vote/mocks/cmd/prime-vote/repository"
+	"github.com/atomgunlk/prime-vote/mocks"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/utils"
 )
 
 func TestUnitHandler_CreateVoteItem(t *testing.T) {
-	mockRepo := repository.NewRepository(t)
+	mockRepo := mocks.NewRepository(t)
 	// Set mock repo function
 	mockRepo.On("CreateVoteItem", &model.CreateVoteItemRequest{Name: "Pita", Description: "Kaoklai_test_create_success"}).
 		Return(
@@ -181,7 +181,7 @@ func TestUnitHandler_CreateVoteItem(t *testing.T) {
 }
 
 func TestUnitHandler_ListVoteItem(t *testing.T) {
-	mockRepo := repository.NewRepository(t)
+	mockRepo := mocks.NewRepository(t)
 	// Set mock repo function
 	mockRepo.On("ListVoteItem", &model.ListVoteItemRequest{Page: 1, Size: 20}).
 		Return(
@@ -274,7 +274,7 @@ func TestUnitHandler_ListVoteItem(t *testing.T) {
 }
 
 func TestUnitHandler_GetVoteItem(t *testing.T) {
-	mockRepo := repository.NewRepository(t)
+	mockRepo := mocks.NewRepository(t)
 	// Set mock repo function
 	mockRepo.On("GetVoteItem", &model.GetVoteItemRequest{ID: 1}).
 		Return(
@@ -389,7 +389,7 @@ func TestUnitHandler_GetVoteItem(t *testing.T) {
 }
 
 func TestUnitHandler_UpdateVoteItem(t *testing.T) {
-	mockRepo := repository.NewRepository(t)
+	mockRepo := mocks.NewRepository(t)
 	// Set mock repo function
 	mockRepo.On("GetVoteItem",
 		&model.GetVoteItemRequest{
@@ -578,7 +578,7 @@ func TestUnitHandler_UpdateVoteItem(t *testing.T) {
 }
 
 func TestUnitHandler_ClearVoteItem(t *testing.T) {
-	mockRepo := repository.NewRepository(t)
+	mockRepo := mocks.NewRepository(t)
 	// Set mock repo function
 	mockRepo.On("ClearVoteItem", &model.ClearVoteItemRequest{ID: 1}).
 		Return(
@@ -703,7 +703,7 @@ func TestUnitHandler_ClearVoteItem(t *testing.T) {
 }
 
 func TestUnitHandler_DeleteVoteItem(t *testing.T) {
-	mockRepo := repository.NewRepository(t)
+	mockRepo := mocks.NewRepository(t)
 	// Set mock repo function
 	mockRepo.On("GetVoteItem",
 		&model.GetVoteItemRequest{

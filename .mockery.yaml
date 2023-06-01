@@ -1,8 +1,7 @@
-inpackage: True
-# testonly: True
+inpackage: False
+testonly: False
 with-expecter: True
 keeptree: False
 
-
 ## gen mockery
-# mockery --all --keeptree
+# mockery --all
